@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kuan Pei Yee - Personal Home Page</title>
+
+
+    <!-- =========================
+         CSS
+         ========================= -->
+
+    <style>
+
+        /* General page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+
+        /* Header */
+        header {
+            background-color: #6c63ff;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+
+        /* Navigation bar */
+        nav {
+            background-color: #333;
+            text-align: center;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #6c63ff;
+        }
+
+
+        /* Main sections */
+        section {
+            background-color: white;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* Section headings */
+        h2 {
+            color: #6c63ff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+
+        h3 {
+            color: #444;
+        }
+
+
+        /* Skills */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background-color: #eee;
+            padding: 10px 16px;
+            border-radius: 20px;
+        }
+
+
+        /* Projects */
+        .project {
+            background-color: #f7f7f7;
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 5px solid #6c63ff;
+        }
+
+
+        /* Buttons */
+        button {
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #5148d8;
+        }
+
+
+        /* JavaScript output */
+        .output {
+            font-weight: bold;
+            color: #6c63ff;
+            margin-top: 15px;
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+
+        /* Mobile screen */
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 30px;
+            }
+
+            nav a {
+                display: block;
+                margin: 8px;
+            }
+
+            section {
+                margin: 15px;
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+         ========================= -->
+
+    <header>
+
+        <h1>Welcome to My Personal Home Page</h1>
+
+        <p>Kuan Pei Yee</p>
+
+        <p>
+            Bachelor of Computer Science (Honours)
+            in Network Computing
+        </p>
+
+    </header>
+
+
+
+    <!-- =========================
+         NAVIGATION
+         ========================= -->
+
+    <nav>
+
+        <a href="#home">Home</a>
+
+        <a href="#about">About Me</a>
+
+        <a href="#education">Education</a>
+
+        <a href="#skills">Skills</a>
+
+        <a href="#projects">Projects</a>
+
+        <a href="#interests">Interests</a>
+
+        <a href="#contact">Contact</a>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HOME
+         ========================= -->
+
+    <section id="home">
+
+        <h2>1. Home</h2>
+
+        <p>
+            Hello! My name is Kuan Pei Yee. Welcome to my personal home page.
+        </p>
+
+        <p>
+            This webpage introduces a little about myself,
+            my education, skills, projects and interests.
+        </p>
+
+
+        <!-- JavaScript Button -->
+
+        <button onclick="welcomeMessage()">
+            Click Me
+        </button>
+
+
+        <p id="welcome" class="output"></p>
+
+    </section>
+
+
+
+    <!-- =========================
+         ABOUT ME
+         ========================= -->
+
+    <section id="about">
+
+        <h2>2. About Me</h2>
+
+        <p>
+            I am a Computer Science (Network Computing) student who is interested
+            in technology and computing.
+        </p>
+
+        <p id="aboutText">
+
+            I enjoy learning new things and improving my skills
+            through different experiences. I am also interested
+            in developing my knowledge in networking, programming
+            and web development.
+
+        </p>
+
+
+        <!-- JavaScript Button -->
+
+        <button onclick="showHideAbout()">
+            Show / Hide Introduction
+        </button>
+
+    </section>
+
+
+
+    <!-- =========================
+         EDUCATION
+         ========================= -->
+
+    <section id="education">
+
+        <h2>3. Education</h2>
+
+        <h3>Universiti Malaysia Sarawak (UNIMAS)</h3>
+
+        <p>
+            Bachelor of Computer Science (Honours)
+            in Network Computing
+        </p>
+
+        <p>
+            I am currently a third-year student.
+        </p>
+
+        <p>
+            My studies include areas such as computer networking,
+            software development, computer systems and security.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         SKILLS
+         ========================= -->
+
+    <section id="skills">
+
+        <h2>4. My Skills</h2>
+
+        <div class="skills">
+
+            <div class="skill">
+                Basic HTML
+            </div>
+
+            <div class="skill">
+                CSS
+            </div>
+
+            <div class="skill">
+                JavaScript
+            </div>
+
+            <div class="skill">
+                Computer Networking
+            </div>
+
+            <div class="skill">
+                Programming
+            </div>
+
+            <div class="skill">
+                Problem Solving
+            </div>
+
+            <div class="skill">
+                Teamwork
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <!-- JavaScript Button -->
+
+        <button onclick="showSkills()">
+            Show My Skills
+        </button>
+
+
+        <p id="skillMessage" class="output"></p>
+
+    </section>
+
+
+
+    <!-- =========================
+         PROJECTS
+         ========================= -->
+
+    <section id="projects">
+
+        <h2>5. My Projects</h2>
+
+
+        <div class="project">
+
+            <h3>Personal Home Page</h3>
+
+            <p>
+                A personal webpage created using HTML,
+                CSS and JavaScript.
+            </p>
+
+        </div>
+
+
+        <div class="project">
+
+            <h3>Bus Ticketing System</h3>
+
+            <p>
+                A system concept related to bus ticket booking
+                and management using object-oriented concepts.
+            </p>
+
+        </div>
+
+
+        <div class="project">
+
+            <h3>Campus Transportation System</h3>
+
+            <p>
+                A system concept involving campus transportation
+                and users.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         INTERESTS
+         ========================= -->
+
+    <section id="interests">
+
+        <h2>6. My Interests</h2>
+
+        <ul>
+
+            <li>Technology</li>
+
+            <li>Computer Networking</li>
+
+            <li>Web Development</li>
+
+            <li>Learning New Skills</li>
+
+            <li>Travelling</li>
+
+        </ul>
+
+    </section>
+
+
+
+    <!-- =========================
+         CONTACT
+         ========================= -->
+
+    <section id="contact">
+
+        <h2>7. Contact</h2>
+
+        <p>
+            Email:
+            <a href="mailto:peiyeek4@gmail.com">
+                peiyeek4@gmail.com
+            </a>
+        </p>
+
+
+        <!-- JavaScript Button -->
+
+        <button onclick="showDateTime()">
+            Show Current Date and Time
+        </button>
+
+
+        <p id="dateTime" class="output"></p>
+
+
+        <p>
+            Thank you for visiting my personal home page!
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Kuan Pei Yee - My Personal Home Page
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+
+        // =================================
+        // JavaScript Function 1
+        // Display a welcome message
+        // =================================
+
+        function welcomeMessage() {
+
+            document.getElementById("welcome").innerHTML =
+                "Welcome to my personal home page! Thank you for visiting.";
+
+        }
+
+
+
+        // =================================
+        // JavaScript Function 2
+        // Show / Hide About Me text
+        // =================================
+
+        function showHideAbout() {
+
+            let text = document.getElementById("aboutText");
+
+
+            if (text.style.display === "none") {
+
+                text.style.display = "block";
+
+            }
+
+            else {
+
+                text.style.display = "none";
+
+            }
+
+        }
+
+
+
+        // =================================
+        // JavaScript Function 3
+        // Display skills
+        // =================================
+
+        function showSkills() {
+
+            document.getElementById("skillMessage").innerHTML =
+                "My main skills include HTML, CSS, JavaScript, computer networking, programming, problem solving and teamwork.";
+
+        }
+
+
+
+        // =================================
+        // JavaScript Function 4
+        // Display current date and time
+        // =================================
+
+        function showDateTime() {
+
+            let currentDate = new Date();
+
+            document.getElementById("dateTime").innerHTML =
+                "Current date and time: " + currentDate.toLocaleString();
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
