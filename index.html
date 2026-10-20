@@ -1,572 +1,1865 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Kuan Pei Yee - Personal Home Page</title>
-
-
-    <!-- =========================
-         CSS
-         ========================= -->
+    <meta name="description" content="Kuan Pei Yee's personal portfolio. Network Computing student at UNIMAS.">
+    <meta name="theme-color" content="#101522">
+    <title>Kuan Pei Yee | Network Computing Portfolio</title>
 
     <style>
+        /* ===== 1. COLOUR THEME ===== */
+        :root {
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --soft: #eef0ff;
+            --text: #20243a;
+            --muted: #626981;
+            --primary: #635bdb;
+            --accent: #13a89e;
+            --border: #e2e5f0;
+            --header: #101522;
+            --shadow: 0 10px 30px rgba(30, 38, 75, 0.08);
+        }
 
-        /* General page */
+        body.dark-mode {
+            --bg: #101522;
+            --surface: #191f30;
+            --soft: #242b42;
+            --text: #f2f4ff;
+            --muted: #b5bdd4;
+            --primary: #a49cff;
+            --accent: #61d7cc;
+            --border: #303850;
+            --header: #0b0f19;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f4f6f8;
-            color: #333;
-            line-height: 1.6;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.25s, color 0.25s;
         }
 
-
-        /* Header */
-        header {
-            background-color: #6c63ff;
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
+        a {
+            color: var(--primary);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 40px;
+        button, input, textarea, select {
+            font: inherit;
         }
 
-        header p {
-            font-size: 18px;
+        button {
+            cursor: pointer;
         }
 
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
 
-        /* Navigation bar */
-        nav {
-            background-color: #333;
-            text-align: center;
-            padding: 15px;
+        [hidden] {
+            display: none !important;
+        }
+
+        .container {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 12px;
+            z-index: 2000;
+            background: var(--surface);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 8px;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            z-index: 1500;
+        }
+
+        #readingProgress {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        /* ===== 2. NAVIGATION ===== */
+        .site-header {
             position: sticky;
             top: 0;
+            z-index: 1000;
+            background: var(--header);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
         }
 
-        nav a {
+        .nav-wrap {
+            max-width: 1100px;
+            min-height: 72px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
             color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
             text-decoration: none;
-            margin: 0 15px;
+            white-space: nowrap;
+        }
+
+        .brand span {
+            color: #a9a2ff;
+        }
+
+        .nav-toggle {
+            display: none;
+            color: white;
+            background: transparent;
+            border: 1px solid #555d73;
+            border-radius: 9px;
+            padding: 8px 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            color: #e6e9f5;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 10px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a[aria-current="location"] {
+            color: white;
+            background: #2a3043;
+        }
+
+        .nav-tools {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-button {
+            border: 1px solid #555d73;
+            border-radius: 9px;
+            color: white;
+            background: transparent;
+            padding: 8px 10px;
+            min-width: 42px;
+        }
+
+        /* ===== 3. HERO ===== */
+        .hero {
+            color: white;
+            padding: clamp(60px, 9vw, 105px) 0;
+            background:
+                radial-gradient(circle at 85% 15%, rgba(99, 91, 219, 0.30), transparent 30%),
+                radial-gradient(circle at 8% 90%, rgba(19, 168, 158, 0.16), transparent 25%),
+                var(--header);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            color: #b9b3ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.78rem;
             font-weight: bold;
         }
 
-        nav a:hover {
-            color: #6c63ff;
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4.6rem);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin: 14px 0;
         }
 
-
-        /* Main sections */
-        section {
-            background-color: white;
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        .hero h1 span {
+            color: #a9a2ff;
         }
 
-
-        /* Section headings */
-        h2 {
-            color: #6c63ff;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 8px;
+        .hero-intro {
+            max-width: 650px;
+            color: #d2d7e7;
+            font-size: 1.08rem;
         }
 
-
-        h3 {
-            color: #444;
-        }
-
-
-        /* Skills */
-        .skills {
+        .hero-actions {
             display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 17px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: white;
+            background: var(--primary);
+        }
+
+        .button-primary:hover {
+            filter: brightness(0.93);
+        }
+
+        .button-outline {
+            color: white;
+            border-color: #596178;
+            background: transparent;
+        }
+
+        .button-outline:hover {
+            background: #252c40;
+        }
+
+        .hero-card {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 25px;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .avatar {
+            display: grid;
+            place-items: center;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 18px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #635bdb, #13a89e);
+            color: white;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .hero-card h2,
+        .hero-card > p {
+            text-align: center;
+        }
+
+        .hero-card h2 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .hero-card > p {
+            margin-top: 4px;
+            color: #c7cde0;
+        }
+
+        .quick-facts {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0 0;
+        }
+
+        .quick-facts li {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            border-top: 1px solid rgba(255,255,255,0.14);
+            font-size: 0.88rem;
+        }
+
+        .quick-facts strong {
+            text-align: right;
+        }
+
+        /* ===== 4. GENERAL SECTIONS ===== */
+        .section {
+            padding: clamp(50px, 7vw, 80px) 0;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin-bottom: 28px;
+        }
+
+        .section-kicker {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.2;
+            margin: 7px 0 10px;
+        }
+
+        .section-heading p,
+        .muted {
+            color: var(--muted);
+        }
+
+        .card {
+            min-width: 0;
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 22px;
+        }
+
+        .highlight-list {
+            padding-left: 20px;
+        }
+
+        .highlight-list li {
+            margin: 8px 0;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--soft);
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: bold;
+        }
+
+        .education-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .education-mark {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 15px;
+            background: var(--soft);
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        /* ===== 5. SKILLS ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .skill-card {
+            padding: 22px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .skill-icon {
+            display: inline-grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 12px;
+            border-radius: 13px;
+            background: var(--soft);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .skill-card h3 {
+            margin: 0 0 7px;
+            font-size: 1.05rem;
+        }
+
+        .skill-card p {
+            color: var(--muted);
+            margin: 0;
+            font-size: 0.92rem;
+        }
+
+        /* ===== 6. PROJECTS ===== */
+        .project-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 23px;
+        }
+
+        .search-field {
+            flex: 1 1 230px;
+            min-width: 0;
+            padding: 11px 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .filter-button {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .filter-button[aria-pressed="true"] {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 19px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            padding: 23px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .project-card[hidden] {
+            display: none !important;
+        }
+
+        .project-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .project-number {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+        }
+
+        .project-status {
+            padding: 4px 8px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        .project-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+        }
+
+        .project-card > p {
+            color: var(--muted);
+            margin: 0 0 10px;
+        }
+
+        .project-card details {
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+        .project-card summary {
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .project-card details p {
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        .project-empty {
+            padding: 22px;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        /* ===== 7. INTERESTS ===== */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .interest {
+            padding: 20px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--surface);
+        }
+
+        .interest span {
+            display: block;
+            font-size: 1.7rem;
+            margin-bottom: 8px;
+        }
+
+        /* ===== 8. CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .contact-links {
+            display: grid;
+            gap: 11px;
+            margin-top: 18px;
+        }
+
+        .contact-link {
+            display: block;
+            padding: 12px 14px;
+            overflow-wrap: anywhere;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            text-decoration: none;
+            background: var(--surface);
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+        }
+
+        .contact-link small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 3px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 13px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            min-width: 0;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-note {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        .form-message {
+            min-height: 1.5em;
+            margin: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* ===== 9. FOOTER & FLOATING BUTTONS ===== */
+        .site-footer {
+            padding: 27px 0;
+            color: #d5d9e8;
+            background: var(--header);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .skill {
-            background-color: #eee;
-            padding: 10px 16px;
-            border-radius: 20px;
+        .footer-inner p {
+            margin: 0;
         }
 
-
-        /* Projects */
-        .project {
-            background-color: #f7f7f7;
-            margin: 15px 0;
-            padding: 15px;
-            border-left: 5px solid #6c63ff;
-        }
-
-
-        /* Buttons */
-        button {
-            background-color: #6c63ff;
+        .back-to-top {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 900;
+            width: 48px;
+            height: 48px;
+            border: 0;
+            border-radius: 14px;
             color: white;
-            border: none;
-            padding: 11px 18px;
-            margin: 5px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
+            background: var(--primary);
+            box-shadow: var(--shadow);
+            font-size: 1.2rem;
         }
 
-        button:hover {
-            background-color: #5148d8;
+        .back-to-top.visible {
+            display: block;
         }
 
-
-        /* JavaScript output */
-        .output {
-            font-weight: bold;
-            color: #6c63ff;
-            margin-top: 15px;
-        }
-
-
-        /* Footer */
-        footer {
-            background-color: #333;
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            z-index: 1600;
+            width: max-content;
+            max-width: calc(100% - 32px);
+            transform: translate(-50%, 15px);
+            opacity: 0;
+            pointer-events: none;
+            padding: 12px 17px;
+            border-radius: 11px;
             color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            background: #20243a;
+            box-shadow: var(--shadow);
+            transition: opacity 0.2s, transform 0.2s;
         }
 
-
-        /* Mobile screen */
-        @media (max-width: 600px) {
-
-            header h1 {
-                font-size: 30px;
-            }
-
-            nav a {
-                display: block;
-                margin: 8px;
-            }
-
-            section {
-                margin: 15px;
-                padding: 20px;
-            }
-
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
         }
 
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.45s, transform 0.45s;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .no-js .reveal {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ===== 10. RESPONSIVE DESIGN ===== */
+        @media (max-width: 900px) {
+            .hero-grid,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                max-width: 440px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-wrap {
+                flex-wrap: wrap;
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+            }
+
+            .nav-tools {
+                margin-left: auto;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 8px 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 10px 12px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .container {
+                width: calc(100% - 28px);
+            }
+
+            .skills-grid,
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card,
+            .project-card {
+                padding: 19px;
+            }
+
+            .hero-actions .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media print {
+            .site-header,
+            .hero-actions,
+            .project-controls,
+            button,
+            .contact-form,
+            .back-to-top,
+            .progress-track {
+                display: none !important;
+            }
+
+            body {
+                color: black;
+                background: white;
+            }
+
+            .hero {
+                color: black;
+                background: white;
+                padding: 20px 0;
+            }
+
+            .hero-intro,
+            .hero-card > p,
+            .quick-facts li {
+                color: #222;
+            }
+
+            .card,
+            .project-card {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
-
 </head>
 
+<body class="no-js">
 
-<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
+    <div class="progress-track" aria-hidden="true">
+        <span id="readingProgress"></span>
+    </div>
 
-    <!-- =========================
-         HEADER
-         ========================= -->
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="nav-wrap">
 
-    <header>
+            <a class="brand" href="#home" aria-label="Kuan Pei Yee home">
+                KP<span>.</span>
+            </a>
 
-        <h1>Welcome to My Personal Home Page</h1>
+            <button class="nav-toggle" id="navToggle" type="button"
+                    aria-expanded="false" aria-controls="navLinks">
+                ☰ Menu
+            </button>
 
-        <p>Kuan Pei Yee</p>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#education">Education</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#interests">Interests</a>
+                <a href="#contact">Contact</a>
+            </nav>
 
-        <p>
-            Bachelor of Computer Science (Honours)
-            in Network Computing
-        </p>
+            <div class="nav-tools">
+                <button class="icon-button" id="themeToggle" type="button"
+                        aria-label="Switch to dark mode" title="Toggle theme">◐</button>
 
+                <button class="icon-button" id="printButton" type="button"
+                        aria-label="Print or save as PDF" title="Print portfolio">⎙</button>
+            </div>
+        </div>
     </header>
 
+    <main id="main">
 
+        <!-- HOME -->
+        <section class="hero" id="home" aria-labelledby="heroTitle">
+            <div class="container hero-grid">
 
-    <!-- =========================
-         NAVIGATION
-         ========================= -->
+                <div>
+                    <p class="eyebrow">Student portfolio · UNIMAS</p>
 
-    <nav>
+                    <h1 id="heroTitle">
+                        Hello, I'm <span>Kuan Pei Yee.</span>
+                    </h1>
 
-        <a href="#home">Home</a>
+                    <p class="hero-intro">
+                        I am a Network Computing student interested in computer
+                        networks, web development and how technology can solve
+                        everyday problems. This portfolio shares my learning
+                        journey, skills and coursework projects.
+                    </p>
 
-        <a href="#about">About Me</a>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#projects">
+                            Explore my projects ↘
+                        </a>
 
-        <a href="#education">Education</a>
+                        <a class="button button-outline" href="#contact">
+                            Get in touch
+                        </a>
+                    </div>
+                </div>
 
-        <a href="#skills">Skills</a>
+                <aside class="hero-card" aria-label="Student profile summary">
+                    <div class="avatar" aria-hidden="true">KPY</div>
 
-        <a href="#projects">Projects</a>
+                    <h2>Kuan Pei Yee</h2>
+                    <p>Network Computing Student</p>
 
-        <a href="#interests">Interests</a>
+                    <ul class="quick-facts">
+                        <li><span>University</span><strong>UNIMAS</strong></li>
+                        <li><span>Programme</span><strong>Computer Science</strong></li>
+                        <li><span>Focus</span><strong>Networks & Web</strong></li>
+                        <li><span>Status</span><strong>Learning in progress</strong></li>
+                    </ul>
+                </aside>
 
-        <a href="#contact">Contact</a>
-
-    </nav>
-
-
-
-    <!-- =========================
-         HOME
-         ========================= -->
-
-    <section id="home">
-
-        <h2>1. Home</h2>
-
-        <p>
-            Hello! My name is Kuan Pei Yee. Welcome to my personal home page.
-        </p>
-
-        <p>
-            This webpage introduces a little about myself,
-            my education, skills, projects and interests.
-        </p>
-
-
-        <!-- JavaScript Button -->
-
-        <button onclick="welcomeMessage()">
-            Click Me
-        </button>
-
-
-        <p id="welcome" class="output"></p>
-
-    </section>
-
-
-
-    <!-- =========================
-         ABOUT ME
-         ========================= -->
-
-    <section id="about">
-
-        <h2>2. About Me</h2>
-
-        <p>
-            I am a Computer Science (Network Computing) student who is interested
-            in technology and computing.
-        </p>
-
-        <p id="aboutText">
-
-            I enjoy learning new things and improving my skills
-            through different experiences. I am also interested
-            in developing my knowledge in networking, programming
-            and web development.
-
-        </p>
-
-
-        <!-- JavaScript Button -->
-
-        <button onclick="showHideAbout()">
-            Show / Hide Introduction
-        </button>
-
-    </section>
-
-
-
-    <!-- =========================
-         EDUCATION
-         ========================= -->
-
-    <section id="education">
-
-        <h2>3. Education</h2>
-
-        <h3>Universiti Malaysia Sarawak (UNIMAS)</h3>
-
-        <p>
-            Bachelor of Computer Science (Honours)
-            in Network Computing
-        </p>
-
-        <p>
-            I am currently a third-year student.
-        </p>
-
-        <p>
-            My studies include areas such as computer networking,
-            software development, computer systems and security.
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         SKILLS
-         ========================= -->
-
-    <section id="skills">
-
-        <h2>4. My Skills</h2>
-
-        <div class="skills">
-
-            <div class="skill">
-                Basic HTML
             </div>
+        </section>
 
-            <div class="skill">
-                CSS
+        <!-- ABOUT -->
+        <section class="section" id="about" aria-labelledby="aboutTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">A little introduction</span>
+                    <h2 id="aboutTitle">About Me</h2>
+                    <p>
+                        Curious about technology, committed to learning,
+                        and building my skills one project at a time.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+
+                    <article class="card reveal">
+                        <h3>My learning journey</h3>
+
+                        <p>
+                            I am a Network Computing student who is interested
+                            in technology, computer networks and computing.
+                            Through my studies, I am developing an understanding
+                            of programming, systems, security and software design.
+                        </p>
+
+                        <p id="extraAbout" hidden>
+                            I value teamwork, practical learning and opportunities
+                            to improve. My goal is to strengthen my technical
+                            foundation and gain experience by applying what I
+                            learn to useful projects.
+                        </p>
+
+                        <button class="button button-primary" id="aboutToggle"
+                                type="button" aria-expanded="false"
+                                aria-controls="extraAbout">
+                            Read more about me
+                        </button>
+                    </article>
+
+                    <aside class="card reveal">
+                        <h3>What matters to me</h3>
+
+                        <ul class="highlight-list">
+                            <li>Learning through hands-on practice</li>
+                            <li>Improving problem-solving skills</li>
+                            <li>Communicating and working with a team</li>
+                            <li>Exploring new ideas and technologies</li>
+                        </ul>
+
+                        <div class="tag-row">
+                            <span class="tag">Curiosity</span>
+                            <span class="tag">Teamwork</span>
+                            <span class="tag">Growth mindset</span>
+                        </div>
+                    </aside>
+
+                </div>
             </div>
+        </section>
 
-            <div class="skill">
-                JavaScript
+        <!-- EDUCATION -->
+        <section class="section" id="education" aria-labelledby="educationTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">My background</span>
+                    <h2 id="educationTitle">Education</h2>
+                    <p>My current academic path and areas of study.</p>
+                </div>
+
+                <article class="card education-card reveal">
+                    <div class="education-mark" aria-hidden="true">U</div>
+
+                    <div>
+                        <h3>Universiti Malaysia Sarawak (UNIMAS)</h3>
+
+                        <p>
+                            <strong>
+                                Bachelor of Computer Science (Honours)
+                                in Network Computing
+                            </strong>
+                        </p>
+
+                        <p class="muted">Current level: Year 3 · Malaysia</p>
+
+                        <p>
+                            My studies include computer networking, computer
+                            systems, programming, software development,
+                            computer security and object-oriented analysis
+                            and design.
+                        </p>
+                    </div>
+                </article>
+
             </div>
+        </section>
 
-            <div class="skill">
-                Computer Networking
+        <!-- SKILLS -->
+        <section class="section" id="skills" aria-labelledby="skillsTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">What I'm developing</span>
+                    <h2 id="skillsTitle">Skills & Learning Areas</h2>
+                    <p>
+                        These are areas I am building through coursework and
+                        practice. My experience will continue to grow.
+                    </p>
+                </div>
+
+                <div class="skills-grid">
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">H</span>
+                        <h3>HTML</h3>
+                        <p>Structuring webpages with headings, links, lists, forms and semantic elements.</p>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">C</span>
+                        <h3>CSS</h3>
+                        <p>Practising layouts, colours, typography, spacing and responsive styling.</p>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">JS</span>
+                        <h3>JavaScript</h3>
+                        <p>Learning functions, events, DOM updates, validation and interactive webpages.</p>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">NET</span>
+                        <h3>Computer Networking</h3>
+                        <p>Studying networking concepts, connectivity and communication between systems.</p>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">{ }</span>
+                        <h3>Programming</h3>
+                        <p>Developing programming logic and breaking problems into smaller steps.</p>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <span class="skill-icon" aria-hidden="true">◎</span>
+                        <h3>Teamwork & Problem Solving</h3>
+                        <p>Contributing to group tasks, discussing requirements and working through challenges.</p>
+                    </article>
+
+                </div>
             </div>
+        </section>
 
-            <div class="skill">
-                Programming
+        <!-- PROJECTS -->
+        <section class="section" id="projects" aria-labelledby="projectsTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">Coursework & practice</span>
+                    <h2 id="projectsTitle">Selected Projects</h2>
+                    <p>
+                        These cards describe coursework topics and practice work.
+                        Update each card with your actual role, tools, results
+                        and status before final submission.
+                    </p>
+                </div>
+
+                <div class="project-controls reveal">
+
+                    <input class="search-field" id="projectSearch" type="search"
+                           placeholder="Search projects..."
+                           aria-label="Search projects by title or topic">
+
+                    <div class="filter-buttons" role="group" aria-label="Filter projects">
+                        <button class="filter-button" type="button"
+                                data-filter="all" aria-pressed="true">All</button>
+
+                        <button class="filter-button" type="button"
+                                data-filter="web" aria-pressed="false">Web</button>
+
+                        <button class="filter-button" type="button"
+                                data-filter="software" aria-pressed="false">Software Design</button>
+
+                        <button class="filter-button" type="button"
+                                data-filter="systems" aria-pressed="false">Systems</button>
+                    </div>
+                </div>
+
+                <div class="project-grid" id="projectGrid">
+
+                    <article class="project-card reveal" data-category="web"
+                             data-search="personal portfolio homepage html css javascript">
+                        <div class="project-topline">
+                            <span class="project-number">PROJECT 01</span>
+                            <span class="project-status">In progress</span>
+                        </div>
+
+                        <h3>Personal Portfolio Website</h3>
+
+                        <p>
+                            A personal homepage introducing my education,
+                            learning areas, interests and selected coursework.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+
+                        <details>
+                            <summary>Project details</summary>
+                            <p>
+                                <strong>Objective:</strong> Practise semantic
+                                webpage structure, responsive styling and
+                                interactive features.
+                                <strong>Role:</strong> Personal website author.
+                                <strong>Next step:</strong> Test accessibility,
+                                fix issues and refine content.
+                            </p>
+                        </details>
+                    </article>
+
+                    <article class="project-card reveal" data-category="software"
+                             data-search="bus ticketing system object oriented booking">
+                        <div class="project-topline">
+                            <span class="project-number">PROJECT 02</span>
+                            <span class="project-status">Coursework concept</span>
+                        </div>
+
+                        <h3>Bus Ticketing System</h3>
+
+                        <p>
+                            A system concept for exploring ticket booking,
+                            passenger information and booking management.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag">Requirements</span>
+                            <span class="tag">OO Concepts</span>
+                        </div>
+
+                        <details>
+                            <summary>Project details</summary>
+                            <p>
+                                <strong>Objective:</strong> Identify system
+                                requirements and possible objects such as
+                                Passenger, Bus, Route and Booking.
+                                <strong>Role:</strong> Add your actual group
+                                contribution here.
+                                <strong>Next step:</strong> Document use cases
+                                and check the design against requirements.
+                            </p>
+                        </details>
+                    </article>
+
+                    <article class="project-card reveal" data-category="software"
+                             data-search="campusgo campus transportation scooter use case">
+                        <div class="project-topline">
+                            <span class="project-number">PROJECT 03</span>
+                            <span class="project-status">Coursework concept</span>
+                        </div>
+
+                        <h3>CampusGo Transportation Concept</h3>
+
+                        <p>
+                            A campus mobility concept for analysing users,
+                            transportation options and service interactions.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag">Use Cases</span>
+                            <span class="tag">User Analysis</span>
+                        </div>
+
+                        <details>
+                            <summary>Project details</summary>
+                            <p>
+                                <strong>Objective:</strong> Explore actors,
+                                user goals and system boundaries.
+                                <strong>Role:</strong> Add the tasks you
+                                personally completed.
+                                <strong>Next step:</strong> Improve use-case
+                                descriptions and clarify actor goals.
+                            </p>
+                        </details>
+                    </article>
+
+                    <article class="project-card reveal" data-category="systems"
+                             data-search="computer system administration networking systems">
+                        <div class="project-topline">
+                            <span class="project-number">PROJECT 04</span>
+                            <span class="project-status">Learning activity</span>
+                        </div>
+
+                        <h3>Computer Systems & Networking Study</h3>
+
+                        <p>
+                            Learning activities focused on computer systems,
+                            network concepts and administration topics.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag">Networking</span>
+                            <span class="tag">Systems</span>
+                        </div>
+
+                        <details>
+                            <summary>Project details</summary>
+                            <p>
+                                <strong>Objective:</strong> Connect theoretical
+                                system concepts to practical scenarios.
+                                <strong>Role:</strong> Describe your actual
+                                notes, lab work or group contribution.
+                                <strong>Next step:</strong> Include a verified
+                                lab example or result if available.
+                            </p>
+                        </details>
+                    </article>
+
+                    <article class="project-card reveal" data-category="software"
+                             data-search="object oriented analysis design use case sequence diagram crc">
+                        <div class="project-topline">
+                            <span class="project-number">PROJECT 05</span>
+                            <span class="project-status">Coursework practice</span>
+                        </div>
+
+                        <h3>Object-Oriented Analysis & Design</h3>
+
+                        <p>
+                            Practice work involving user intent, object
+                            responsibilities and modelling software interactions.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag">Use Cases</span>
+                            <span class="tag">CRC</span>
+                            <span class="tag">Sequence Diagrams</span>
+                        </div>
+
+                        <details>
+                            <summary>Project details</summary>
+                            <p>
+                                <strong>Objective:</strong> Translate user
+                                needs into models that communicate system
+                                behaviour.
+                                <strong>Role:</strong> Replace this with the
+                                artefacts you actually completed.
+                                <strong>Next step:</strong> Check consistency
+                                between requirements, objects and diagrams.
+                            </p>
+                        </details>
+                    </article>
+
+                </div>
+
+                <p class="project-empty" id="projectEmpty" hidden>
+                    No projects match your search. Try another keyword or filter.
+                </p>
+
+                <p class="muted" id="projectCount" aria-live="polite">
+                    Showing 5 projects.
+                </p>
+
             </div>
+        </section>
 
-            <div class="skill">
-                Problem Solving
+        <!-- INTERESTS -->
+        <section class="section" id="interests" aria-labelledby="interestsTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">Outside the classroom</span>
+                    <h2 id="interestsTitle">Interests</h2>
+                    <p>Topics and activities that motivate me to keep learning and exploring.</p>
+                </div>
+
+                <div class="interests-grid">
+                    <div class="interest reveal"><span aria-hidden="true">🌐</span><strong>Technology</strong></div>
+                    <div class="interest reveal"><span aria-hidden="true">💻</span><strong>Web Development</strong></div>
+                    <div class="interest reveal"><span aria-hidden="true">🧩</span><strong>Problem Solving</strong></div>
+                    <div class="interest reveal"><span aria-hidden="true">✈️</span><strong>Travelling</strong></div>
+                </div>
+
             </div>
+        </section>
 
-            <div class="skill">
-                Teamwork
+        <!-- CONTACT -->
+        <section class="section" id="contact" aria-labelledby="contactTitle">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-kicker">Let's connect</span>
+                    <h2 id="contactTitle">Contact</h2>
+                    <p>
+                        For academic collaboration or learning opportunities,
+                        you can reach me by email.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+
+                    <div class="card reveal">
+                        <h3>Contact Information</h3>
+
+                        <p class="muted">
+                            Use the email link below to contact me.
+                        </p>
+
+                        <div class="contact-links">
+                            <a class="contact-link" href="mailto:peiyeek4@gmail.com">
+                                <small>Email</small>
+                                peiyeek4@gmail.com
+                            </a>
+
+                            <div class="contact-link">
+                                <small>University</small>
+                                Universiti Malaysia Sarawak (UNIMAS)
+                            </div>
+
+                            <div class="contact-link">
+                                <small>Field of Study</small>
+                                Network Computing
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card reveal">
+                        <h3>Quick Message Draft</h3>
+
+                        <p class="muted">
+                            This form prepares a message in your email application.
+                            It does not send or store messages on this website.
+                        </p>
+
+                        <form class="contact-form" id="contactForm">
+
+                            <div class="form-row">
+                                <div>
+                                    <label for="visitorName">Your name</label>
+                                    <input id="visitorName" name="visitorName"
+                                           type="text" autocomplete="name"
+                                           maxlength="80" required>
+                                </div>
+
+                                <div>
+                                    <label for="visitorEmail">Your email</label>
+                                    <input id="visitorEmail" name="visitorEmail"
+                                           type="email" autocomplete="email"
+                                           maxlength="120" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="messageTopic">Topic</label>
+                                <select id="messageTopic" name="messageTopic" required>
+                                    <option value="">Choose a topic</option>
+                                    <option value="Academic collaboration">Academic collaboration</option>
+                                    <option value="Project discussion">Project discussion</option>
+                                    <option value="Internship or opportunity">Internship or opportunity</option>
+                                    <option value="Other enquiry">Other enquiry</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="visitorMessage">Message</label>
+                                <textarea id="visitorMessage" name="visitorMessage"
+                                          maxlength="1500" required
+                                          placeholder="Write a short message..."></textarea>
+                            </div>
+
+                            <button class="button button-primary" type="submit">
+                                Create Email Draft
+                            </button>
+
+                            <p class="form-note">
+                                Your email application must be configured for this button to open a draft.
+                            </p>
+
+                            <p class="form-message" id="formMessage"
+                               role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+
+                </div>
             </div>
+        </section>
 
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year">2026</span> Kuan Pei Yee · Personal Portfolio</p>
+            <p>Made with HTML, CSS & JavaScript.</p>
         </div>
-
-
-        <br>
-
-
-        <!-- JavaScript Button -->
-
-        <button onclick="showSkills()">
-            Show My Skills
-        </button>
-
-
-        <p id="skillMessage" class="output"></p>
-
-    </section>
-
-
-
-    <!-- =========================
-         PROJECTS
-         ========================= -->
-
-    <section id="projects">
-
-        <h2>5. My Projects</h2>
-
-
-        <div class="project">
-
-            <h3>Personal Home Page</h3>
-
-            <p>
-                A personal webpage created using HTML,
-                CSS and JavaScript.
-            </p>
-
-        </div>
-
-
-        <div class="project">
-
-            <h3>Bus Ticketing System</h3>
-
-            <p>
-                A system concept related to bus ticket booking
-                and management using object-oriented concepts.
-            </p>
-
-        </div>
-
-
-        <div class="project">
-
-            <h3>Campus Transportation System</h3>
-
-            <p>
-                A system concept involving campus transportation
-                and users.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         INTERESTS
-         ========================= -->
-
-    <section id="interests">
-
-        <h2>6. My Interests</h2>
-
-        <ul>
-
-            <li>Technology</li>
-
-            <li>Computer Networking</li>
-
-            <li>Web Development</li>
-
-            <li>Learning New Skills</li>
-
-            <li>Travelling</li>
-
-        </ul>
-
-    </section>
-
-
-
-    <!-- =========================
-         CONTACT
-         ========================= -->
-
-    <section id="contact">
-
-        <h2>7. Contact</h2>
-
-        <p>
-            Email:
-            <a href="mailto:peiyeek4@gmail.com">
-                peiyeek4@gmail.com
-            </a>
-        </p>
-
-
-        <!-- JavaScript Button -->
-
-        <button onclick="showDateTime()">
-            Show Current Date and Time
-        </button>
-
-
-        <p id="dateTime" class="output"></p>
-
-
-        <p>
-            Thank you for visiting my personal home page!
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         FOOTER
-         ========================= -->
-
-    <footer>
-
-        <p>
-            © 2026 Kuan Pei Yee - My Personal Home Page
-        </p>
-
     </footer>
 
+    <button class="back-to-top" id="backToTop" type="button"
+            aria-label="Back to top" title="Back to top">↑</button>
 
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- =========================
-         JAVASCRIPT
-         ========================= -->
-
+    <!-- JAVASCRIPT -->
     <script>
+        "use strict";
+
+        document.body.classList.remove("no-js");
+
+        const selectOne = (selector, parent = document) =>
+            parent.querySelector(selector);
+
+        const selectAll = (selector, parent = document) =>
+            Array.from(parent.querySelectorAll(selector));
 
 
-        // =================================
-        // JavaScript Function 1
-        // Display a welcome message
-        // =================================
+        // FEATURE 1: Show temporary messages.
+        function showToast(message) {
+            const toast = selectOne("#toast");
+            if (!toast) return;
 
-        function welcomeMessage() {
+            toast.textContent = message;
+            toast.classList.add("show");
 
-            document.getElementById("welcome").innerHTML =
-                "Welcome to my personal home page! Thank you for visiting.";
+            window.clearTimeout(showToast.timeoutId);
 
+            showToast.timeoutId = window.setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2600);
         }
 
 
+        // FEATURE 2: Mobile navigation menu.
+        const navToggle = selectOne("#navToggle");
+        const navLinks = selectOne("#navLinks");
 
-        // =================================
-        // JavaScript Function 2
-        // Show / Hide About Me text
-        // =================================
+        if (navToggle && navLinks) {
+            navToggle.addEventListener("click", () => {
+                const isOpen = navLinks.classList.toggle("open");
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+            });
 
-        function showHideAbout() {
+            selectAll("#navLinks a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    navLinks.classList.remove("open");
+                    navToggle.setAttribute("aria-expanded", "false");
+                });
+            });
+        }
 
-            let text = document.getElementById("aboutText");
 
+        // FEATURE 3: Toggle dark mode and light mode.
+        const themeToggle = selectOne("#themeToggle");
 
-            if (text.style.display === "none") {
+        function applyTheme(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
 
-                text.style.display = "block";
+            if (themeToggle) {
+                themeToggle.setAttribute(
+                    "aria-label",
+                    isDark ? "Switch to light mode" : "Switch to dark mode"
+                );
 
+                themeToggle.textContent = isDark ? "☀" : "◐";
             }
+        }
 
-            else {
+        if (themeToggle) {
+            themeToggle.addEventListener("click", () => {
+                const isDark =
+                    !document.body.classList.contains("dark-mode");
 
-                text.style.display = "none";
+                applyTheme(isDark);
 
-            }
+                try {
+                    localStorage.setItem(
+                        "kpy-theme",
+                        isDark ? "dark" : "light"
+                    );
+                } catch (error) {
+                    // Theme switching still works if storage is unavailable.
+                }
 
+                showToast(isDark ? "Dark mode enabled." : "Light mode enabled.");
+            });
         }
 
 
-
-        // =================================
-        // JavaScript Function 3
-        // Display skills
-        // =================================
-
-        function showSkills() {
-
-            document.getElementById("skillMessage").innerHTML =
-                "My main skills include HTML, CSS, JavaScript, computer networking, programming, problem solving and teamwork.";
-
+        // FEATURE 4: Remember the visitor's theme preference.
+        try {
+            applyTheme(localStorage.getItem("kpy-theme") === "dark");
+        } catch (error) {
+            applyTheme(false);
         }
 
 
+        // FEATURE 5: Show or hide the extra About Me paragraph.
+        const aboutToggle = selectOne("#aboutToggle");
+        const extraAbout = selectOne("#extraAbout");
 
-        // =================================
-        // JavaScript Function 4
-        // Display current date and time
-        // =================================
+        if (aboutToggle && extraAbout) {
+            aboutToggle.addEventListener("click", () => {
+                const willShow = extraAbout.hidden;
 
-        function showDateTime() {
+                extraAbout.hidden = !willShow;
+                aboutToggle.setAttribute("aria-expanded", String(willShow));
 
-            let currentDate = new Date();
-
-            document.getElementById("dateTime").innerHTML =
-                "Current date and time: " + currentDate.toLocaleString();
-
+                aboutToggle.textContent = willShow
+                    ? "Show less"
+                    : "Read more about me";
+            });
         }
 
+
+        // FEATURE 6: Search project cards by their text.
+        const projectSearch = selectOne("#projectSearch");
+        const projectCards = selectAll(".project-card");
+        const projectCount = selectOne("#projectCount");
+        const projectEmpty = selectOne("#projectEmpty");
+
+        let activeProjectFilter = "all";
+
+        function filterProjects() {
+            const query = projectSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            projectCards.forEach((card) => {
+                const categoryMatches =
+                    activeProjectFilter === "all" ||
+                    card.dataset.category === activeProjectFilter;
+
+                const searchableText = (
+                    (card.dataset.search || "") + " " + card.textContent
+                ).toLowerCase();
+
+                const textMatches = searchableText.includes(query);
+                const shouldShow = categoryMatches && textMatches;
+
+                card.hidden = !shouldShow;
+
+                if (shouldShow) visibleCount++;
+            });
+
+            projectCount.textContent =
+                `Showing ${visibleCount} of ${projectCards.length} projects.`;
+
+            projectEmpty.hidden = visibleCount !== 0;
+        }
+
+        if (projectSearch) {
+            projectSearch.addEventListener("input", filterProjects);
+        }
+
+
+        // FEATURE 7: Filter projects by category.
+        selectAll("[data-filter]").forEach((button) => {
+            button.addEventListener("click", () => {
+                activeProjectFilter = button.dataset.filter || "all";
+
+                selectAll("[data-filter]").forEach((otherButton) => {
+                    otherButton.setAttribute(
+                        "aria-pressed",
+                        String(otherButton === button)
+                    );
+                });
+
+                filterProjects();
+            });
+        });
+
+
+        // FEATURE 8: Reading progress bar and scroll detection.
+        const readingProgress = selectOne("#readingProgress");
+        const backToTop = selectOne("#backToTop");
+
+        function updateScrollUI() {
+            const pageHeight =
+                document.documentElement.scrollHeight - window.innerHeight;
+
+            const progress = pageHeight > 0
+                ? (window.scrollY / pageHeight) * 100
+                : 0;
+
+            readingProgress.style.width =
+                `${Math.min(100, Math.max(0, progress))}%`;
+
+            backToTop.classList.toggle("visible", window.scrollY > 450);
+        }
+
+        window.addEventListener("scroll", updateScrollUI, { passive: true });
+        window.addEventListener("resize", updateScrollUI);
+        updateScrollUI();
+
+
+        // FEATURE 9: Smoothly return to the top.
+        if (backToTop) {
+            backToTop.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        }
+
+
+        // FEATURE 10: Reveal sections as they enter the screen.
+        const revealItems = selectAll(".reveal");
+
+        const reduceMotion =
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if ("IntersectionObserver" in window && !reduceMotion) {
+            const revealObserver = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("is-visible");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.12 }
+            );
+
+            revealItems.forEach((item) => revealObserver.observe(item));
+        } else {
+            revealItems.forEach((item) => item.classList.add("is-visible"));
+        }
+
+
+        // FEATURE 11: Automatically update the footer year.
+        const yearElement = selectOne("#year");
+
+        if (yearElement) {
+            yearElement.textContent = String(new Date().getFullYear());
+        }
+
+
+        // FEATURE 12: Print or save the portfolio as a PDF.
+        const printButton = selectOne("#printButton");
+
+        if (printButton) {
+            printButton.addEventListener("click", () => {
+                window.print();
+            });
+        }
+
+
+        // FEATURE 13: Validate the contact form and prepare an email draft.
+        const contactForm = selectOne("#contactForm");
+        const formMessage = selectOne("#formMessage");
+
+        if (contactForm) {
+            contactForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                if (!contactForm.checkValidity()) {
+                    contactForm.reportValidity();
+                    formMessage.textContent =
+                        "Please complete all required fields correctly.";
+                    return;
+                }
+
+                const visitorName =
+                    selectOne("#visitorName").value.trim();
+
+                const visitorEmail =
+                    selectOne("#visitorEmail").value.trim();
+
+                const messageTopic =
+                    selectOne("#messageTopic").value;
+
+                const visitorMessage =
+                    selectOne("#visitorMessage").value.trim();
+
+                if (
+                    !visitorName ||
+                    !visitorEmail ||
+                    !messageTopic ||
+                    !visitorMessage
+                ) {
+                    formMessage.textContent =
+                        "Please complete all fields.";
+                    return;
+                }
+
+                const subject = encodeURIComponent(
+                    `Portfolio enquiry: ${messageTopic}`
+                );
+
+                const body = encodeURIComponent(
+                    `Name: ${visitorName}\n` +
+                    `Email: ${visitorEmail}\n` +
+                    `Topic: ${messageTopic}\n\n` +
+                    `${visitorMessage}`
+                );
+
+                const mailtoURL =
+                    `mailto:peiyeek4@gmail.com?subject=${subject}&body=${body}`;
+
+                formMessage.textContent =
+                    "Opening your email application. This website does not send the message.";
+
+                window.location.href = mailtoURL;
+            });
+        }
+
+
+        // FEATURE 14: Generate a greeting based on local time.
+        function getTimeGreeting() {
+            const hour = new Date().getHours();
+
+            if (hour < 12) return "Good morning";
+            if (hour < 18) return "Good afternoon";
+
+            return "Good evening";
+        }
+
+        const heroIntro = selectOne(".hero-intro");
+
+        if (heroIntro) {
+            heroIntro.title =
+                `${getTimeGreeting()}! Welcome to Kuan Pei Yee's portfolio.`;
+        }
+
+
+        // FEATURE 15: Highlight the navigation link for the current section.
+        const sectionLinks =
+            selectAll('.nav-links a[href^="#"]');
+
+        const observedSections = sectionLinks
+            .map((link) => selectOne(link.getAttribute("href")))
+            .filter(Boolean);
+
+        if ("IntersectionObserver" in window) {
+            const sectionObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            sectionLinks.forEach((link) => {
+                                if (
+                                    link.getAttribute("href") ===
+                                    `#${entry.target.id}`
+                                ) {
+                                    link.setAttribute(
+                                        "aria-current",
+                                        "location"
+                                    );
+                                } else {
+                                    link.removeAttribute("aria-current");
+                                }
+                            });
+                        }
+                    });
+                },
+                { rootMargin: "-25% 0px -60% 0px" }
+            );
+
+            observedSections.forEach((section) =>
+                sectionObserver.observe(section)
+            );
+        }
+
+
+        // FEATURE 16: Give feedback when visitors open the projects section.
+        const projectCTA = selectOne('.hero-actions a[href="#projects"]');
+
+        if (projectCTA) {
+            projectCTA.addEventListener("click", () => {
+                showToast("Explore my selected coursework and practice projects.");
+            });
+        }
 
     </script>
-
-
 </body>
-
 </html>
